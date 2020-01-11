@@ -2,8 +2,35 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import vant from '../src/plugins/vant'
+import 'vant/lib/index.css'
+
+import axios from 'axios'
 
 Vue.config.productionTip = false
+// 配置请求的根路径
+axios.defaults.baseURL = 'http://www.liulongbin.top:3005/'
+Vue.prototype.$http = axios
+
+
+Vue.filter('dateFormat', function (originVal) {
+  const dt = new Date(originVal)
+
+  // 年份
+  const y = dt.getFullYear()
+  // 月份
+  const m = (dt.getMonth() + 1 + '').padStart(2, '0')
+  // 日份
+  const d = (dt.getDate() + '').padStart(2, '0')
+  // 时
+  const hh = (dt.getHours() + '').padStart(2, '0')
+  // 分
+  const mm = (dt.getMinutes() + '').padStart(2, '0')
+  // 秒
+  const ss = (dt.getSeconds() + '').padStart(2, '0')
+
+  return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+})
 
 new Vue({
   router,
