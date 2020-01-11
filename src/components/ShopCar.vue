@@ -15,7 +15,7 @@
         </div>
         <!-- 商品增加减少区域 步进器 -->
         <div slot="footer">
-            <van-stepper v-model="item.cou" integer input-width="30px" button-size="26px" @plus="addNum(item.id)" @minus="subNum(item.id)" />
+            <van-stepper v-model="item.cou" integer input-width="30px" button-size="26px" @change="(value) => {cchange(value,item.id)}" />
         </div>
         
     </van-card>
@@ -44,7 +44,8 @@ export default {
         value:1,
         isLoading: false,
         numArr:[],
-        idArr:[]
+        idArr:[],
+        changeGoods:{}
     };
   },
   created(){
@@ -81,24 +82,38 @@ export default {
         //   遍历shopcarlist,然后将shopcarlist里面每个数据中的cou的值更换为numArr对应的值
           for(var i = 0;i<this.shopcarlist.length;i++){
               this.shopcarlist[i].cou = this.numArr[i]
-          }   
+          }
+          this.$store.commit('changeNum',this.changeGoods)
+
+      },
+
+      cchange(value,id){
+          console.log(value)
+          console.log(id)
+          this.changeGoods = {
+              num : value,
+              id : id
+          }
+          this.$store.commit('changeNum',this.changeGoods)
       },
       //   点击 + 按钮式增加和商品时运行的函数
-      addNum(id){
-          var i = this.shopcarlist.findIndex(item=>item.id == id)
-          console.log(i);
-          if(i !== -1){
-              this.shopcarlist[i].cou++
-          }
-      },
-    //   点击 - 按钮式增加和商品时运行的函数
-      subNum(id){
-          var i = this.shopcarlist.findIndex(item=>item.id == id)
-          console.log(i);
-          if(i !== -1){
-              this.shopcarlist[i].cou--
-          }
-      },
+    //   numChange(detail,id){
+          
+    //     //   this.$store.commit('changeNum',value)
+    //     //   var i = this.shopcarlist.findIndex(item=>item.id == id)
+    //     //   console.log(i);
+    //     //   if(i !== -1){
+    //     //       this.shopcarlist[i].cou++
+    //     //   }
+    //   },
+    // //   点击 - 按钮式增加和商品时运行的函数
+    //   subNum(id){
+    //       var i = this.shopcarlist.findIndex(item=>item.id == id)
+    //       console.log(i);
+    //       if(i !== -1){
+    //           this.shopcarlist[i].cou--
+    //       }
+    //   },
     //   点击删除图标的时候运行的函数
       deleteGoods(id){
            var i = this.shopcarlist.findIndex(item=>item.id == id)
@@ -109,6 +124,7 @@ export default {
     //   页面下拉刷新时运行的函数
       onRefresh(){
           setTimeout(() => {
+              this.$store.commit('changeNum',this.changeGoods)
               this.getShopCarList()
               this.isLoading = false;
          }, 1000);

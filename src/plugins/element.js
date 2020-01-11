@@ -13,6 +13,12 @@ import { Icon } from 'vant'
 // 导入下拉刷新组件
 import { PullRefresh } from 'vant'
 
+import { Cell, CellGroup, Image, Row, Col, List, Grid,NavBar,Swipe,SwipeItem,Lazyload,Toast,Field } from 'vant'
+
+
+
+
+
 
 Vue.use(Card)
 Vue.use(Button)
@@ -22,3 +28,22 @@ Vue.use(SubmitBar)
 Vue.use(Notify)
 Vue.use(Icon)
 Vue.use(PullRefresh)
+
+
+Vue.use(Button)
+Vue.use(Card)
+Vue.use(Cell)
+Vue.use(CellGroup)
+Vue.use(Image)
+Vue.use(Row)
+Vue.use(Col)
+Vue.use(List)
+Vue.use(PullRefresh)
+Vue.use(Grid)
+Vue.use(NavBar)
+Vue.use(Swipe)
+Vue.use(SwipeItem)
+Vue.use(Stepper)
+Vue.use(Lazyload)
+Vue.use(Toast)
+Vue.use(Field)
